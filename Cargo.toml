@@ -9,6 +9,7 @@ categories = ["development-tools", "development-tools::profiling"]
 description = "Painless and production friendly timers"
 repository = "https://github.com/dominusmi/rust-breezy-timer"
 exclude = [".idea"]
+readme = "README.md"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
