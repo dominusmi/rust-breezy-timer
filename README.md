@@ -12,7 +12,9 @@ production code without changing the final performance. See section
 
 ## Usage
 When compiling, simply add the `feature` `breezy_timer` if you want to have the times, e.g.
+
 ``` cargo build foocrate --release --feature breezy_timer ``` 
+
 or simply do not put the feature to remove the times.
 
 ## API
