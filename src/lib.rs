@@ -1,7 +1,7 @@
 pub use std::collections::HashMap;
 pub use global::Global;
+pub use cpu_time::ProcessTime;
 use std::hash::Hash;
-use cpu_time::ProcessTime;
 
 /// Structure used to keep track of the current process time since the last `start_timer!()` call,
 /// as well as the sum of all previously calculated times.
@@ -41,7 +41,7 @@ impl TimerState {
 macro_rules! prepare_timer {
     () => {
             #[cfg(feature="breezy_timer")]
-            static TIMERS: global::Global<std::collections::HashMap<&'static str, $crate::TimerState>> = global::Global::new();
+            static TIMERS: $crate::Global<std::collections::HashMap<&'static str, $crate::TimerState>> = $crate::Global::new();
     }
 }
 
@@ -54,7 +54,7 @@ macro_rules! start_timer {
         {
             TIMERS.with_mut(|hashmap| {
                 hashmap.entry($x)
-                    .and_modify(|entry| entry.reset_time(cpu_time::ProcessTime::now()))
+                    .and_modify(|entry| entry.reset_time($crate::ProcessTime::now()))
                     .or_insert($crate::TimerState::new());
             });
         }
