@@ -97,7 +97,7 @@ macro_rules! elapsed_ns {
     }
 }
 
-/// Helper function to clone a hashmap, needed by the macro `get_hashmap!()`
+/// Helper function to clone a hashmap, needed by the macro `get_timers_map!()`
 pub fn clone_hashmap<A: Clone+Eq+Hash, B: Clone+Eq>(hashmap: &HashMap<A, B>) -> HashMap<A, B> {
     let mut new_hashmap = HashMap::new();
     for (a,b) in hashmap.iter(){
