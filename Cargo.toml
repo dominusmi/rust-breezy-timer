@@ -1,0 +1,24 @@
+[package]
+name = "breezy-timer"
+version = "0.1.0"
+authors = ["Ed <barp.edoardo@gmail.com>"]
+edition = "2018"
+keywords = ["benchmark", "benchmarking", "timing", "performance"]
+categories = ["development-tools", "development-tools::profiling"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+cpu-time = "1.0.0"
+global = "0.4.3"
+
+[dev-dependencies]
+criterion = "0.3.4"
+rand = "0.8.3"
+
+[[bench]]
+name = "performance_benchmarks"
+harness = false
+
+[features]
+"breezy_timer" = []
