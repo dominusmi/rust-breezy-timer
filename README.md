@@ -9,15 +9,25 @@ production code without changing the final performance. See section
 - use directly in production code, 
 - no need to modify code when releasing, simply de-activate feature!
 
+__Note__: due to the structure, and the use of locking mechanism (thread safety), this package is not suitable for 
+very high performance timings. It takes, on my average machine, about `500ns` per update (whether start or stop). 
+If you try to time blocks of code which are of this order of magnitude of speed, the readings will be 
+quite useless, but in those cases you probably want to use individual benchmark files, with tools such 
+as [Criterion](https://github.com/bheisler/criterion.rs).
+
 
 ## Usage
-Add dependency `Cargo.toml`
+Add these lines to your `Cargo.toml`:
 ```
+[dependencies]
 breezy-timer = "0.1.0"
+
+[features]
+breezy_timer = ["breezy-timer/breezy_timer"]
 ```
 When compiling, simply add the `feature` `breezy_timer` if you want to have the times, e.g.
 
-``` cargo build foocrate --release --feature breezy_timer ``` 
+``` cargo build foocrate --release --features breezy_timer ``` 
 
 or simply do not put the feature to remove the times.
 
