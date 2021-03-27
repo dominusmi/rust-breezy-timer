@@ -78,7 +78,8 @@ macro_rules! stop_timer {
     };
 }
 
-/// Returns the amount of nanoseconds elapsed by the timer with the provided name
+/// Returns the amount of nanoseconds elapsed by the timer with the provided name. If feature
+/// `breezy_timer` is not active, returns 0 (to avoid breaking code which depends on the output)
 #[macro_export]
 macro_rules! elapsed_ns {
     ( $x:expr) => {
@@ -106,7 +107,8 @@ pub fn clone_hashmap<A: Clone+Eq+Hash, B: Clone+Eq>(hashmap: &HashMap<A, B>) -> 
 }
 
 /// Returns the hashmap containing each timer. The key corresponds to the timer name, and the value
-/// is an instance of `TimerState`.
+/// is an instance of `TimerState`. If feature `breezy_timer` is not active, return an empty
+/// `HashMap` (to avoid breaking code which depends on the output)
 #[macro_export]
 macro_rules! get_timers_map {
     () => {
