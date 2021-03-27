@@ -11,6 +11,10 @@ production code without changing the final performance. See section
 
 
 ## Usage
+Add dependency `Cargo.toml`
+```
+breezy-timer = "0.1.0"
+```
 When compiling, simply add the `feature` `breezy_timer` if you want to have the times, e.g.
 
 ``` cargo build foocrate --release --feature breezy_timer ``` 
