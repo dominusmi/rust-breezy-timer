@@ -1,4 +1,3 @@
-use cpu_time::ProcessTime;
 use criterion::black_box;
 
 use breezy_timer::{prepare_timer, start_timer, stop_timer, elapsed_ns, get_timers_map};
