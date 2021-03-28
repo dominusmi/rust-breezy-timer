@@ -12,7 +12,7 @@ production code without changing the final performance. See section
 __Note__: due to the structure, and the use of locking mechanism (thread safety), this package is not suitable for 
 very high performance timings. It takes, on my average machine, about `500ns` per update (whether start or stop). 
 If you try to time blocks of code which are of this order of magnitude of speed, the readings will be 
-quite useless, but in those cases you probably want to use individual benchmark files, with tools such 
+quite useless. Generally, if you want to benchmark pieces of code of that order of speed, you probably want to use individual benchmark files, with tools such 
 as [Criterion](https://github.com/bheisler/criterion.rs).
 
 
@@ -20,7 +20,7 @@ as [Criterion](https://github.com/bheisler/criterion.rs).
 Add these lines to your `Cargo.toml`:
 ```
 [dependencies]
-breezy-timer = "0.1.0"
+breezy-timer = "0.1.2"
 
 [features]
 breezy_timer = ["breezy-timer/breezy_timer"]
@@ -29,14 +29,14 @@ When compiling, simply add the `feature` `breezy_timer` if you want to have the 
 
 ``` cargo build foocrate --release --features breezy_timer ``` 
 
-or simply do not put the feature to remove the times.
+if the feature is not explicitely provided, all timers will disappear at compilation.
 
 ## API
 `prepare_timer!()`: must be called before any other timer related function
 
-`start_timer!("foo")`: creates or adds to timer called `foo`, depending if it already exists
+`start_timer!("foo")`: creates or updates timer called `foo` to `ProcessTime::now()`
 
-`stop_timer!("foo")`: computes the `ProcessTime` since the last `start_timer!("foor")` was called, and adds it to the timer state
+`stop_timer!("foo")`: computes the `ProcessTime` since the last `start_timer!("foo")` was called, and adds it to the timer state
 
 `elapsed_ns!("foo")`: returns the sum of the nano secondes spent in the timer `foo`. When feature not active, returns `0u128`
 
@@ -99,6 +99,9 @@ it doesn't exist, or updated, and its start time is set to `ProcessTime::now()`.
 When `stop_timer!("foo")` is called, the entry `foo` is fetched the elapsed time
 since the last `start_timer!("foo")` is added to the total nanoseconds variable.
 
+## Future work
+- Add `get_json!()`: macro to get the timers formatted in `json` of shape `{"timer-name": total_elapsed_ns}
+- Check performance gain with simpler hasher (by default, `HashMap` uses DOS-safe hasher) 
 
 ## License
 
@@ -112,4 +115,5 @@ at your option.
 ## Contribution
 
 PR requests are welcome highly welcome! 
+
 Unless you explicitly state otherwise, any contribution intentionally submitted for inclusion in globals by you, as defined in the Apache-2.0 license, shall be dual licensed as above, without any additional terms or conditions.
