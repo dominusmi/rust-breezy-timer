@@ -1,8 +1,12 @@
+
 # Breezy timer ⏲️
 
 Breezy timer's objective is to be a very simple timing library, which can be put into 
 production code without changing the final performance. See section 
 [how does it work](#how-does-it-work) for further information.
+
+[![](https://img.shields.io/crates/v/breezy-timer.svg)](https://crates.io/crates/breezy-timer)
+[![](https://img.shields.io/badge/docs-latest-blue.svg?style=flat-square)](https://docs.rs/breezy-timer/latest/breezy_timer/)
 
 ## Aim
 - simple to use
