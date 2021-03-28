@@ -32,7 +32,7 @@ fn sum_timed(vec: &Vec<u8>, iterations: usize) -> u32 {
 
 
 fn bench_sum(c: &mut Criterion) {
-    let mut group = c.benchmark_group("Benchmark repeated sum of vector");
+    let mut group = c.benchmark_group("repeated sum of vector");
     let vec: Vec<u8> = (0..102400).map(|_| { rand::random::<u8>() }).collect();
 
     // size: number of times to sum the vector
@@ -46,5 +46,18 @@ fn bench_sum(c: &mut Criterion) {
     group.finish();
 }
 
-criterion_group!(benches, bench_sum);
+fn start_and_stop_timer(name: &'static str) {
+    start_timer!(name);
+    stop_timer!(name);
+}
+
+fn bench_timer(c: &mut Criterion) {
+    // size: number of times to sum the vector
+    prepare_timer!();
+    c.bench_with_input(BenchmarkId::new("start and stop timer", &"foo"),
+                       &"foo",|b, name| b.iter(|| start_and_stop_timer(name)) );
+
+}
+
+criterion_group!(benches, bench_sum, bench_timer);
 criterion_main!(benches);
