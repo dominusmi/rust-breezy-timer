@@ -1,5 +1,5 @@
 [package]
-name = "breezy-timer"
+name = "breezy-timer-lib"
 version = "1.0.0"
 authors = ["Ed <barp.edoardo@gmail.com>"]
 edition = "2018"
@@ -10,22 +10,10 @@ description = "Painless and production friendly timers"
 repository = "https://github.com/dominusmi/rust-breezy-timer"
 exclude = [".idea"]
 readme = "README.md"
-
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 cpu-time = "1.0.0"
-global = "0.4.3"
-breezy-timer-lib = { path = "breezy-timer-lib" }
-
-
-[dev-dependencies]
-criterion = "0.3.4"
-rand = "0.8.3"
-
-[[bench]]
-name = "performance_benchmarks"
-harness = false
 
 [features]
-breezy_timer = ["breezy-timer-lib/breezy_timer"]
+"breezy_timer" = []
