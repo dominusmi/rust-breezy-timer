@@ -1,4 +1,3 @@
-*/target
-*/probes
+**/target
 */.idea
 Cargo.lock
