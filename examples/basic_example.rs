@@ -1,30 +1,27 @@
 use criterion::black_box;
-
-use breezy_timer::{prepare_timer, start_timer, stop_timer, elapsed_ns, get_timers_map};
-
-prepare_timer!();
+use breezy_timer_lib::{BreezyTimer, Timer};
 
 fn main(){
+    let mut btimer = BreezyTimer::new();
     let mut vectors = Vec::new();
 
-    start_timer!("total");
+    btimer.start("total");
     for _ in 0..10 {
-        start_timer!("allocations");
+        btimer.start("allocations");
         let vec: Vec<u8> = (0..102400).map(|_| { rand::random::<u8>() }).collect();
         vectors.push(vec);
-        stop_timer!("allocations");
+        btimer.stop("allocations");
 
-        start_timer!("sum");
+        btimer.start("sum");
         let mut total = 0;
         for v in vectors.iter() {
             total += v.iter().map(|x| *x as u32).sum::<u32>();
         }
         // used so that compiler doesn't simply remove the loop because nothing is done with total
         black_box(total);
-        stop_timer!("sum");
+        btimer.stop("sum");
     }
-    stop_timer!("total");
+    btimer.stop("total");
 
-    println!("{:?}", get_timers_map!());
-    println!("allocations: {}ns\nsum: {}ns\ntotal: {}ns", elapsed_ns!("allocations"), elapsed_ns!("sum"), elapsed_ns!("total"));
+    println!("{:?}", btimer);
 }
