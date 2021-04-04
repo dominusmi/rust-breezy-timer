@@ -99,6 +99,7 @@ sum of the durations of all previous ones.
 - Add GlobalBreezyTimer, together with function based timing using 
 procedural macro and a global BreezyTimer
 - Check performance gain with simpler hasher (by default, `HashMap` uses DOS-safe hasher) 
+- Add `stop_start("foo", "bar")` function to easily stop timer `foo` and start `bar`
 
 ## License
 
