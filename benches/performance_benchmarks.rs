@@ -2,11 +2,6 @@
 
 use criterion::{criterion_group, criterion_main, Criterion, BenchmarkId, black_box};
 use breezy_timer::*;
-use std::mem::take;
-use global::Global;
-
-prepare_timer!();
-
 
 fn sum_normal(vec: &Vec<u8>, iterations: usize) -> u32 {
     let mut total = 0;
@@ -19,13 +14,14 @@ fn sum_normal(vec: &Vec<u8>, iterations: usize) -> u32 {
 }
 
 fn sum_timed(vec: &Vec<u8>, iterations: usize) -> u32 {
+    let mut btimer = BreezyTimer::new();
     let mut total = 0;
     for _ in 0..iterations {
-        start_timer!("sum");
+        btimer.start("sum");
         for v in black_box(vec) {
             total += *v as u32
         }
-        stop_timer!("sum");
+        btimer.stop("sum");
     }
     total
 }
@@ -47,13 +43,13 @@ fn bench_sum(c: &mut Criterion) {
 }
 
 fn start_and_stop_timer(name: &'static str) {
-    start_timer!(name);
-    stop_timer!(name);
+    let mut btimer = BreezyTimer::new();
+    btimer.start(name);
+    btimer.stop(name);
 }
 
 fn bench_timer(c: &mut Criterion) {
     // size: number of times to sum the vector
-    prepare_timer!();
     c.bench_with_input(BenchmarkId::new("start and stop timer", &"foo"),
                        &"foo",|b, name| b.iter(|| start_and_stop_timer(name)) );
 
