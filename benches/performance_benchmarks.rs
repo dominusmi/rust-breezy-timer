@@ -2,7 +2,6 @@
 
 use criterion::{criterion_group, criterion_main, Criterion, BenchmarkId, black_box};
 use breezy_timer::*;
-use std::mem::take;
 
 fn sum_normal(vec: &Vec<u8>, iterations: usize) -> u32 {
     let mut total = 0;
